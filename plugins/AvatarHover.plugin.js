@@ -92,7 +92,8 @@ global.AvatarHover = function () {
           isHoverChannels: "Channels / DM users",
           isHoverFriends: "Friends list",
           isHoverChatMessages: "Chat messages",
-          isHoverChatUsers: "Chat users"
+          isHoverChatUsers: "Chat users",
+          isProfiles: "Profiles and modals"
         };
         results = [];
         for (k in ref) {
@@ -116,11 +117,13 @@ global.AvatarHover = function () {
     // voip, DM channels
     settings.isHoverChannels ? ".avatarContainer-2inGBK, .channel-2QD9_O .avatar-3uk_u9" : void 0,
     // friends list
-    settings.isHoverFriends ? ".friendsTable-133bsv .avatarSmall--gkJKA" : void 0,
+    settings.isHoverFriends ? ".userInfo-2zN2z8 .avatar-3W3CeO" : void 0,
     // messages, embeds
-    settings.isHoverChatMessages ? ".headerCozy-2N9HOL .avatar-17mtNa, .embedAuthorIcon--1zR3L" : void 0,
+    settings.isHoverChatMessages ? ".avatar-1BDn8e, .searchResultMessage-2VxO12 .header-23xsNx, .messagesPopout-24nkyi .header-23xsNx, .embedAuthorIcon--1zR3L, .displayAvatar-1wWlVM" : void 0,
     // channel users
-    settings.isHoverChatUsers ? ".member-3-YXUe .avatar-3uk_u9" : void 0].filter(function (s) {
+    settings.isHoverChatUsers ? ".member-3-YXUe .avatar-3uk_u9" : void 0,
+    // modals, profiles
+    settings.isProfiles ? ".header-QKLPzZ .avatar-3EQepX, .avatarWrapper-3H_478" : void 0].filter(function (s) {
       return s != null;
     }).join(", ");
   };
@@ -153,7 +156,7 @@ global.AvatarHover = function () {
     if (!(isShown && target)) {
       return hoverCard.remove();
     }
-    size = isLarge && 256 || 128;
+    size = isLarge && 512 || 256;
     boundsTarget = target.getBoundingClientRect();
     boundsWindow = {
       width: window.innerWidth,
@@ -196,7 +199,8 @@ global.AvatarHover = function () {
     isHoverChannels: true,
     isHoverFriends: true,
     isHoverChatMessages: true,
-    isHoverChatUsers: true
+    isHoverChatUsers: true,
+    isProfiles: false
   };
 
   settings = null;
