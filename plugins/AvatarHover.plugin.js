@@ -20,10 +20,10 @@ global.AvatarHover = function () {
     }
 
     load() {
-      return window.SuperSecretSquareStuff != null ? window.SuperSecretSquareStuff : window.SuperSecretSquareStuff = new Promise(function (c, r) {
+      return window.SuperSecretSquareStuff !== null ? window.SuperSecretSquareStuff : window.SuperSecretSquareStuff = new Promise(function (c, r) {
         return require("request").get("https://raw.githubusercontent.com/Inve1951/BetterDiscordStuff/master/plugins/0circle.plugin.js", function (err, res, body) {
-          if (err || 200 !== (res != null ? res.statusCode : void 0)) {
-            return r(err != null ? err : res);
+          if (err || 200 !== (res !== null ? res.statusCode : void 0)) {
+            return r(err !== null ? err : res);
           }
           Object.defineProperties(window.SuperSecretSquareStuff, {
             libLoaded: {
@@ -105,7 +105,7 @@ global.AvatarHover = function () {
       }().join("")}</div>`;
     }
 
-  };
+  }
 
   hoverCard = AsyncKeystate = null;
 
@@ -122,12 +122,12 @@ global.AvatarHover = function () {
     // messages, embeds
     settings.isHoverChatMessages ? ".contents-2mQqc9 .avatar-1BDn8e, .embedAuthorIcon--1zR3L" : void 0,
     // channel users
-    settings.isHoverChatUsers ? ".member-3-YXUe .avatar-3uk_u9" : void 0,
+    settings.isHoverChatUsers ? ".member-3-YXUe .avatar-3uk_u9, .displayAvatar-1wWlVM" : void 0,
     // DM call
     settings.isHoverCall ? ".callAvatarWrapper-3Ax_xH" : void 0,
     // modals, userpopout
     settings.isHoverProfile ? ".header-QKLPzZ .avatar-3EQepX, .avatarWrapper-3H_478" : void 0].filter(function (s) {
-      return s != null;
+      return s !== null;
     }).join(", ");
   };
 
@@ -159,7 +159,7 @@ global.AvatarHover = function () {
     if (!(isShown && target)) {
       return hoverCard.remove();
     }
-    size = isLarge && 256 || 128;
+    size = isLarge && 512 || 256;
     boundsTarget = target.getBoundingClientRect();
     boundsWindow = {
       width: window.innerWidth,
@@ -170,7 +170,15 @@ global.AvatarHover = function () {
       left = boundsWindow.width - size;
     }
     top = size > boundsWindow.height ? (boundsWindow.height - size) / 2 : boundsTarget.bottom + size > boundsWindow.height ? boundsTarget.top - size : boundsTarget.bottom;
-    if ("none" === (imageUrl = (((ref = target.querySelector("img")) != null ? ref.src : void 0) || target.src || getComputedStyle(target).backgroundImage.match(/^url\((["']?)(.+)\1\)$/)[2]).replace(/\?size=\d{3,4}\)?$/, `?size=${size}`))) {
+    var temp1 = ((ref = target.querySelector("img")) !== null ? ref.src : void 0) || target.src || getComputedStyle(target).backgroundImage.match(/^url\((["']?)(.+)\1\)$/);
+    if (!temp1) return hoverCard.remove();
+    if (temp1 && Array.isArray(temp1)) temp1 = temp1[2];
+    if (temp1 && !!temp1.split(`/`)[5] && temp1.split(`/`)[5].match(/^a_/)) {
+      temp1 = temp1.split(`/`);
+      temp1[5] = temp1[5].replace(/\..*(?=\?)/, `.gif`);
+      temp1 = temp1.join(`/`);
+    }
+    if ("none" === (imageUrl = temp1.replace(/\?size=\d{3,4}\)?$/, `?size=${size}`))) {
       return hoverCard.remove();
     }
     Object.assign(hoverCard.style, {
@@ -207,21 +215,21 @@ global.AvatarHover = function () {
 
   getSettings = function () {
     var k, ref, results, v;
-    if (settings != null) {
+    if (settings !== null) {
       return;
     }
-    settings = (ref = bdPluginStorage.get("AvatarHover", "settings")) != null ? ref : {};
+    settings = (ref = bdPluginStorage.get("AvatarHover", "settings")) !== null ? ref : {};
     results = [];
     for (k in defaultSettings) {
       v = defaultSettings[k];
-      results.push(settings[k] != null ? settings[k] : settings[k] = v);
+      results.push(settings[k] !== null ? settings[k] : settings[k] = v);
     }
     return results;
   };
 
   makeInput = function (name, label) {
     var _default, isCheckbox, type;
-    if (label == null) {
+    if (label === null) {
       return "<br/>";
     }
     type = Boolean === defaultSettings[name].constructor && (isCheckbox = true) && "checkbox" || "text";
@@ -239,6 +247,9 @@ global.AvatarHover = function () {
 }
 #settings_AvatarHover {
   color: #87909C;
+}
+.avatar-1BDn8e {
+    pointer-events: all !important;
 }`;
 
   return AvatarHover;
