@@ -20,10 +20,10 @@ global.AvatarHover = function () {
     }
 
     load() {
-      return window.SuperSecretSquareStuff !== null ? window.SuperSecretSquareStuff : window.SuperSecretSquareStuff = new Promise(function (c, r) {
+      return window.SuperSecretSquareStuff != null ? window.SuperSecretSquareStuff : window.SuperSecretSquareStuff = new Promise(function (c, r) {
         return require("request").get("https://raw.githubusercontent.com/Inve1951/BetterDiscordStuff/master/plugins/0circle.plugin.js", function (err, res, body) {
-          if (err || 200 !== (res !== null ? res.statusCode : void 0)) {
-            return r(err !== null ? err : res);
+          if (err || 200 !== (res != null ? res.statusCode : void 0)) {
+            return r(err != null ? err : res);
           }
           Object.defineProperties(window.SuperSecretSquareStuff, {
             libLoaded: {
@@ -127,7 +127,7 @@ global.AvatarHover = function () {
     settings.isHoverCall ? ".callAvatarWrapper-3Ax_xH" : void 0,
     // modals, userpopout
     settings.isHoverProfile ? ".header-QKLPzZ .avatar-3EQepX, .avatarWrapper-3H_478" : void 0].filter(function (s) {
-      return s !== null;
+      return s != null;
     }).join(", ");
   };
 
@@ -215,14 +215,14 @@ global.AvatarHover = function () {
 
   getSettings = function () {
     var k, ref, results, v;
-    if (settings !== null) {
+    if (settings != null) {
       return;
     }
-    settings = (ref = bdPluginStorage.get("AvatarHover", "settings")) !== null ? ref : {};
+    settings = (ref = bdPluginStorage.get("AvatarHover", "settings")) != null ? ref : {};
     results = [];
     for (k in defaultSettings) {
       v = defaultSettings[k];
-      results.push(settings[k] !== null ? settings[k] : settings[k] = v);
+      results.push(settings[k] != null ? settings[k] : settings[k] = v);
     }
     return results;
   };
