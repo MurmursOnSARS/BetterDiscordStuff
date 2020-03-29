@@ -16,7 +16,7 @@ global.AvatarHover = function () {
     }
 
     getVersion() {
-      return "0.7.0";
+      return "0.7.1";
     }
 
     load() {
@@ -71,7 +71,7 @@ global.AvatarHover = function () {
         ({ name, type, value, checked } = ref[i]);
         settings[name] = "checkbox" === type ? checked : value || defaultSettings[name];
       }
-      bdPluginStorage.set("AvatarHover", "settings", settings);
+      BdApi.setData("AvatarHover", "settings", settings);
       return updateQualifier();
     }
 
@@ -105,7 +105,7 @@ global.AvatarHover = function () {
       }().join("")}</div>`;
     }
 
-  }
+  };
 
   hoverCard = AsyncKeystate = null;
 
@@ -218,7 +218,7 @@ global.AvatarHover = function () {
     if (settings != null) {
       return;
     }
-    settings = (ref = bdPluginStorage.get("AvatarHover", "settings")) != null ? ref : {};
+    settings = (ref = BdApi.getData("AvatarHover", "settings")) != null ? ref : {};
     results = [];
     for (k in defaultSettings) {
       v = defaultSettings[k];
@@ -229,7 +229,7 @@ global.AvatarHover = function () {
 
   makeInput = function (name, label) {
     var _default, isCheckbox, type;
-    if (label === null) {
+    if (label == null) {
       return "<br/>";
     }
     type = Boolean === defaultSettings[name].constructor && (isCheckbox = true) && "checkbox" || "text";
